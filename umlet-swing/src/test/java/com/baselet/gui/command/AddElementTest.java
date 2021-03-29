@@ -1,7 +1,5 @@
 package com.baselet.gui.command;
 
-import java.io.StringReader;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.baselet.control.constants.Constants;
@@ -14,7 +12,6 @@ import com.baselet.element.old.element.Actor;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.github.javaparser.JavaParser;
 import org.mockito.Mockito;
 
 import static org.junit.Assert.assertFalse;

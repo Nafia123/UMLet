@@ -1,8 +1,14 @@
 package com.baselet.diagram.io;
 
+import com.baselet.control.constants.Constants;
 import com.baselet.control.enums.Program;
 import com.baselet.control.enums.RuntimeType;
+import com.baselet.diagram.CurrentDiagram;
 import com.baselet.diagram.DiagramHandler;
+import com.baselet.diagram.DrawPanel;
+import com.baselet.element.interfaces.GridElement;
+import com.baselet.element.old.element.Actor;
+import com.baselet.gui.command.AddElement;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -18,31 +24,37 @@ public class DiagramFileHandlerTest {
 
     private DiagramHandler diagramHandler;
     private DiagramFileHandler fileHandler;
+    private CurrentDiagram currentDiagram;
     private File file;
 
 
     @Before
     public void setUp(){
         Program.init("", RuntimeType.STANDALONE);
-        file = new File("src/test/resources/diagram.png");
+        file = new File("src/test/resources/diagram.uxf");
         diagramHandler = Mockito.mock(DiagramHandler.class);
         fileHandler = new DiagramFileHandler(diagramHandler, file);
-        Mockito.when(diagramHandler.getName()).thenReturn("diagram");
+
     }
 
     @Test
-    public void GivenDiagram_WhenExportDiagram_ThenDiagramExportedAsPNG() throws IOException{
-        new FileOutputStream(file);
+    public void GivenDiagram_WhenSaveDiagram_ThenDiagramSavedAsUXF() throws IOException{
+        //Given
+        new FileOutputStream(file); // File exists.
 
-        fileHandler.doSaveAs("png");
+        //When
+        diagramHandler.setChanged(true);
 
+        long currentTime = System.currentTimeMillis();
 
-        String fileName = new File("src/test/resources/diagram.png").getName();
+        fileHandler.doSave();
 
-        int lastIndexOf = fileName.lastIndexOf(".");
-        String extension = fileName.substring(lastIndexOf);
-        assertEquals(extension,".png");
+        // Then
+        assertTrue(file.lastModified() > currentTime);
+
 
     }
+
+
 
 }
