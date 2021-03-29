@@ -7,4 +7,3 @@ UMLet is an open-source UML tool with a simple user interface: draw UML diagrams
 * Go to http://www.umlet.com to get the latest compiled versions or to http://www.umletino.com to use UMLet in your web browser
 
 
-Changing ??
